@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>徒步类APP设计</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 p-8">
+    <div class="container mx-auto">
+      <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+        徒步类APP界面设计
+      </h1>
+
+      <!-- 页面展示区域 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- 首页/发现页 -->
+        <div class="bg-white rounded-lg shadow-lg p-4 aspect-[9/16]">
+          <div class="bg-gray-50 rounded-lg h-full p-4">
+            <div class="text-sm text-gray-500 mb-2">首页/发现</div>
+            <div class="space-y-4">
+              <!-- 顶部搜索栏 -->
+              <div class="bg-gray-200 rounded-full h-10 flex items-center px-4">
+                <svg
+                  class="w-4 h-4 text-gray-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  ></path>
+                </svg>
+                <div class="ml-2 text-gray-400 text-sm">搜索路线、目的地</div>
+              </div>
+
+              <!-- 轮播图 -->
+              <div class="relative bg-gray-300 rounded-lg h-40 overflow-hidden">
+                <div
+                  class="flex transition-transform duration-500 ease-in-out"
+                  id="homeCarousel"
+                >
+                  <img
+                    src="https://picsum.photos/seed/home1/1600/900"
+                    alt="精选路线轮播1"
+                    class="w-full h-40 object-cover flex-shrink-0"
+                    loading="lazy"
+                    onerror="this.src='https://via.placeholder.com/1600x900?text=图片加载失败'"
+                  />
+                  <img
+                    src="https://picsum.photos/seed/home2/1600/900"
+                    alt="精选路线轮播2"
+                    class="w-full h-40 object-cover flex-shrink-0"
+                    loading="lazy"
+                    onerror="this.src='https://via.placeholder.com/1600x900?text=图片加载失败'"
+                  />
+                  <img
+                    src="https://picsum.photos/seed/home3/1600/900"
+                    alt="精选路线轮播3"
+                    class="w-full h-40 object-cover flex-shrink-0"
+                    loading="lazy"
+                    onerror="this.src='https://via.placeholder.com/1600x900?text=图片加载失败'"
+                  />
+                </div>
+                <!-- 轮播控制按钮 -->
+                <button
+                  class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white/75 rounded-full p-2"
+                  onclick="moveCarousel('home', -1)"
+                >
+                  <svg
+                    class="w-4 h-4 text-gray-800"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 19l-7-7 7-7"
+                    ></path>
+                  </svg>
+                </button>
+                <button
+                  class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white/75 rounded-full p-2"
+                  onclick="moveCarousel('home', 1)"
+                >
+                  <svg
+                    class="w-4 h-4 text-gray-800"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                </button>
+                <!-- 轮播指示器 -->
+                <div
+                  class="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-2"
+                >
+                  <button
+                    class="w-2 h-2 rounded-full bg-white/50 hover:bg-white/75"
+                    onclick="goToSlide('home', 0)"
+                  ></button>
+                  <button
+                    class="w-2 h-2 rounded-full bg-white/50 hover:bg-white/75"
+                    onclick="goToSlide('home', 1)"
+                  ></button>
+                  <button
+                    class="w-2 h-2 rounded-full bg-white/50 hover:bg-white/75"
+                    onclick="goToSlide('home', 2)"
+                  ></button>
+                </div>
+              </div>
+
+              <!-- 功能导航 -->
+              <div class="grid grid-cols-4 gap-4">
+                <div class="text-center">
+                  <div
+                    class="bg-blue-100 rounded-lg h-12 w-12 mx-auto mb-1 flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-6 h-6 text-blue-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="text-xs">路线</div>
+                </div>
+                <div class="text-center">
+                  <div
+                    class="bg-green-100 rounded-lg h-12 w-12 mx-auto mb-1 flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-6 h-6 text-green-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="text-xs">天气</div>
+                </div>
+                <div class="text-center">
+                  <div
+                    class="bg-yellow-100 rounded-lg h-12 w-12 mx-auto mb-1 flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-6 h-6 text-yellow-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="text-xs">装备</div>
+                </div>
+                <div class="text-center">
+                  <div
+                    class="bg-purple-100 rounded-lg h-12 w-12 mx-auto mb-1 flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-6 h-6 text-purple-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="text-xs">社区</div>
+                </div>
+              </div>
+
+              <!-- 推荐路线列表 -->
+              <div class="space-y-3">
+                <div class="text-sm font-medium">热门路线</div>
+                <div
+                  class="bg-gray-200 rounded-lg h-24 flex items-center justify-center overflow-hidden relative group"
+                >
+                  <img
+                    src="https://picsum.photos/800/600"
+                    alt="路线卡片 1"
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                    onerror="this.src='https://via.placeholder.com/800x600?text=图片加载失败'"
+                  />
+                  <div
+                    class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <div class="text-white font-medium">查看详情</div>
+                  </div>
+                </div>
+                <div
+                  class="bg-gray-200 rounded-lg h-24 flex items-center justify-center overflow-hidden relative group"
+                >
+                  <img
+                    src="https://picsum.photos/800/601"
+                    alt="路线卡片 2"
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                    onerror="this.src='https://via.placeholder.com/800x600?text=图片加载失败'"
+                  />
+                  <div
+                    class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <div class="text-white font-medium">查看详情</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 路线详情页 -->
+        <div class="bg-white rounded-lg shadow-lg p-4 aspect-[9/16]">
+          <div class="bg-gray-50 rounded-lg h-full p-4">
+            <div class="text-sm text-gray-500 mb-2">路线详情</div>
+            <div class="space-y-4">
+              <!-- 路线图片轮播 -->
+              <div class="relative">
+                <div class="bg-gray-300 rounded-lg h-48 overflow-hidden">
+                  <div
+                    class="flex transition-transform duration-500 ease-in-out"
+                    id="detailCarousel"
+                  >
+                    <img
+                      src="https://picsum.photos/seed/detail1/1200/800"
+                      alt="路线图片1"
+                      class="w-full h-48 object-cover flex-shrink-0"
+                      loading="lazy"
+                      onerror="this.src='https://via.placeholder.com/1200x800?text=图片加载失败'"
+                    />
+                    <img
+                      src="https://picsum.photos/seed/detail2/1200/800"
+                      alt="路线图片2"
+                      class="w-full h-48 object-cover flex-shrink-0"
+                      loading="lazy"
+                      onerror="this.src='https://via.placeholder.com/1200x800?text=图片加载失败'"
+                    />
+                    <img
+                      src="https://picsum.photos/seed/detail3/1200/800"
+                      alt="路线图片3"
+                      class="w-full h-48 object-cover flex-shrink-0"
+                      loading="lazy"
+                      onerror="this.src='https://via.placeholder.com/1200x800?text=图片加载失败'"
+                    />
+                  </div>
+                  <!-- 轮播控制按钮 -->
+                  <button
+                    class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white/75 rounded-full p-2"
+                    onclick="moveCarousel('detail', -1)"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-800"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 19l-7-7 7-7"
+                      ></path>
+                    </svg>
+                  </button>
+                  <button
+                    class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white/75 rounded-full p-2"
+                    onclick="moveCarousel('detail', 1)"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-800"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      ></path>
+                    </svg>
+                  </button>
+                  <!-- 轮播指示器 -->
+                  <div
+                    class="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-2"
+                  >
+                    <button
+                      class="w-2 h-2 rounded-full bg-white/50 hover:bg-white/75"
+                      onclick="goToSlide('detail', 0)"
+                    ></button>
+                    <button
+                      class="w-2 h-2 rounded-full bg-white/50 hover:bg-white/75"
+                      onclick="goToSlide('detail', 1)"
+                    ></button>
+                    <button
+                      class="w-2 h-2 rounded-full bg-white/50 hover:bg-white/75"
+                      onclick="goToSlide('detail', 2)"
+                    ></button>
+                  </div>
+                </div>
+                <button
+                  class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm rounded-full p-2"
+                >
+                  <svg
+                    class="w-5 h-5 text-red-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <!-- 路线信息 -->
+              <div>
+                <h2 class="text-xl font-bold text-gray-800">莫干山徒步路线</h2>
+                <div class="flex items-center space-x-4 mt-2">
+                  <span class="text-sm text-gray-500">难度：中等</span>
+                  <span class="text-sm text-gray-500">时长：4-5小时</span>
+                  <span class="text-sm text-gray-500">距离：8.5km</span>
+                </div>
+              </div>
+
+              <!-- 路线标签 -->
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm"
+                  >#山地徒步</span
+                >
+                <span
+                  class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm"
+                  >#风景优美</span
+                >
+                <span
+                  class="px-3 py-1 bg-yellow-100 text-yellow-600 rounded-full text-sm"
+                  >#适合拍照</span
+                >
+              </div>
+
+              <!-- 路线描述 -->
+              <div class="text-gray-600 text-sm">
+                莫干山位于浙江省湖州市德清县，是国家AAAA级旅游景区。这条徒步路线带您领略竹海风光，体验清新空气...
+              </div>
+
+              <!-- 评论区 -->
+              <div class="space-y-3">
+                <div class="text-sm font-medium">评论区</div>
+                <div class="space-y-2">
+                  <div class="bg-white rounded-lg p-3 shadow-sm">
+                    <div class="flex items-center space-x-2">
+                      <img
+                        src="https://picsum.photos/100/100"
+                        alt="用户头像"
+                        class="w-8 h-8 rounded-full object-cover"
+                        loading="lazy"
+                        onerror="this.src='https://via.placeholder.com/100x100?text=头像'"
+                      />
+                      <div>
+                        <div class="text-sm font-medium">用户名</div>
+                        <div class="text-xs text-gray-500">2023-12-20</div>
+                      </div>
+                    </div>
+                    <div class="text-sm mt-2">
+                      路线很棒，风景优美，适合周末出行！
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 天气预报页面 -->
+        <div class="bg-white rounded-lg shadow-lg p-4 aspect-[9/16]">
+          <div class="bg-gray-50 rounded-lg h-full p-4">
+            <div class="text-sm text-gray-500 mb-2">天气预报</div>
+            <div class="space-y-4">
+              <!-- 实时天气 -->
+              <div class="bg-white rounded-lg p-4 shadow-sm">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-2xl font-bold">25°C</div>
+                    <div class="text-sm text-gray-500">晴朗</div>
+                  </div>
+                  <svg class="w-12 h-12 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                  </svg>
+                </div>
+                <div class="mt-3 grid grid-cols-3 gap-2 text-center text-sm">
+                  <div>
+                    <div class="text-gray-500">湿度</div>
+                    <div>65%</div>
+                  </div>
+                  <div>
+                    <div class="text-gray-500">风速</div>
+                    <div>3.5m/s</div>
+                  </div>
+                  <div>
+                    <div class="text-gray-500">能见度</div>
+                    <div>10km</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 未来天气预测 -->
+              <div class="space-y-2">
+                <div class="text-sm font-medium">未来预测</div>
+                <div class="grid grid-cols-4 gap-2">
+                  <div class="bg-white rounded-lg p-2 text-center shadow-sm">
+                    <div class="text-xs text-gray-500">周一</div>
+                    <svg class="w-8 h-8 mx-auto my-1 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    <div class="text-sm">26°/18°</div>
+                  </div>
+                  <div class="bg-white rounded-lg p-2 text-center shadow-sm">
+                    <div class="text-xs text-gray-500">周二</div>
+                    <svg class="w-8 h-8 mx-auto my-1 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
+                    </svg>
+                    <div class="text-sm">24°/17°</div>
+                  </div>
+                  <div class="bg-white rounded-lg p-2 text-center shadow-sm">
+                    <div class="text-xs text-gray-500">周三</div>
+                    <svg class="w-8 h-8 mx-auto my-1 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M20.693 17.33a4 4 0 10-7.386-3.06M3.307 17.33a4 4 0 117.386-3.06M12 3v13M12 3l3 3m-3-3L9 6"></path>
+                    </svg>
+                    <div class="text-sm">22°/16°</div>
+                  </div>
+                  <div class="bg-white rounded-lg p-2 text-center shadow-sm">
+                    <div class="text-xs text-gray-500">周四</div>
+                    <svg class="w-8 h-8 mx-auto my-1 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    <div class="text-sm">25°/17°</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 徒步建议 -->
+              <div class="bg-blue-50 rounded-lg p-4">
+                <div class="text-sm font-medium mb-2">徒步建议</div>
+                <div class="text-sm text-gray-600">
+                  今天天气晴朗，适合徒步活动。建议：
+                  <ul class="list-disc list-inside mt-1 space-y-1">
+                    <li>带足防晒用品</li>
+                    <li>准备充足饮用水</li>
+                    <li>建议上午9点前或下午4点后出发</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    // 轮播图状态管理
+    const carouselState = {
+      home: { currentSlide: 0, autoplayInterval: null },
+      detail: { currentSlide: 0, autoplayInterval: null }
+    };
+
+    // 移动轮播图
+    function moveCarousel(type, direction) {
+      const carousel = document.getElementById(`${type}Carousel`);
+      const slides = carousel.children;
+      const totalSlides = slides.length;
+      
+      carouselState[type].currentSlide = (carouselState[type].currentSlide + direction + totalSlides) % totalSlides;
+      updateCarousel(type);
+    }
+
+    // 跳转到指定幻灯片
+    function goToSlide(type, index) {
+      carouselState[type].currentSlide = index;
+      updateCarousel(type);
+    }
+
+    // 更新轮播图显示
+    function updateCarousel(type) {
+      const carousel = document.getElementById(`${type}Carousel`);
+      const slideWidth = carousel.children[0].offsetWidth;
+      carousel.style.transform = `translateX(-${carouselState[type].currentSlide * slideWidth}px)`;
+      
+      // 更新指示器状态
+      const indicators = carousel.parentElement.querySelectorAll('.w-2.h-2');
+      indicators.forEach((indicator, index) => {
+        indicator.style.backgroundColor = index === carouselState[type].currentSlide ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.5)';
+      });
+    }
+
+    // 自动播放功能
+    function startAutoplay(type) {
+      if (carouselState[type].autoplayInterval) return;
+      carouselState[type].autoplayInterval = setInterval(() => moveCarousel(type, 1), 5000);
+    }
+
+    function stopAutoplay(type) {
+      if (!carouselState[type].autoplayInterval) return;
+      clearInterval(carouselState[type].autoplayInterval);
+      carouselState[type].autoplayInterval = null;
+    }
+
+    // 初始化轮播图
+    ['home', 'detail'].forEach(type => {
+      const carousel = document.getElementById(`${type}Carousel`);
+      if (!carousel) return;
+
+      // 鼠标悬停时暂停自动播放
+      carousel.parentElement.addEventListener('mouseenter', () => stopAutoplay(type));
+      carousel.parentElement.addEventListener('mouseleave', () => startAutoplay(type));
+
+      // 开始自动播放
+      startAutoplay(type);
+    });
+  </script>
+</body>
+</html>
